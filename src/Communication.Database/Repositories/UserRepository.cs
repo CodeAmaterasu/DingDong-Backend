@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace DingDong.Backend.Communication.Database.Repositories
 {
-    class UserRepository
+    public class UserRepository
     {
         /// <summary>
         /// Factory for creating instances of the class which connects to the database
@@ -34,7 +34,7 @@ namespace DingDong.Backend.Communication.Database.Repositories
             }
         }
 
-        public async Task<User> Find(string hashedKey)
+        public async Task<User> FindByKey(string hashedKey)
         {
             await using var context = DatabaseContextFactory.CreateDbContext();
 
@@ -46,8 +46,14 @@ namespace DingDong.Backend.Communication.Database.Repositories
             }
             catch (Exception e)
             {
-                throw new Exception("Exception with finding User in Database", e);
+                throw new Exception("Exception with finding User in Database based on Hashed-Key", e);
             }
+        }
+
+        public async Task<User> FindByEmail(string email)
+        {
+            await using var context = DatabaseContextFactory.CreateDbContext();
+            return await context.User.FirstOrDefaultAsync(u => u.Email == email);
         }
     }
 }
