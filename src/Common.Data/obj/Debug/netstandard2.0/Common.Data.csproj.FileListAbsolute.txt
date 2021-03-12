@@ -1,9 +1,0 @@
-/Volumes/Projects/GitHub/DingDong-Backend/build/Debug/netstandard2.0/DingDong.Backend.Common.Data.deps.json
-/Volumes/Projects/GitHub/DingDong-Backend/build/Debug/netstandard2.0/DingDong.Backend.Common.Data.dll
-/Volumes/Projects/GitHub/DingDong-Backend/build/Debug/netstandard2.0/DingDong.Backend.Common.Data.pdb
-/Volumes/Projects/GitHub/DingDong-Backend/src/Common.Data/obj/Debug/netstandard2.0/Common.Data.csprojAssemblyReference.cache
-/Volumes/Projects/GitHub/DingDong-Backend/src/Common.Data/obj/Debug/netstandard2.0/Common.Data.AssemblyInfoInputs.cache
-/Volumes/Projects/GitHub/DingDong-Backend/src/Common.Data/obj/Debug/netstandard2.0/Common.Data.AssemblyInfo.cs
-/Volumes/Projects/GitHub/DingDong-Backend/src/Common.Data/obj/Debug/netstandard2.0/Common.Data.csproj.CoreCompileInputs.cache
-/Volumes/Projects/GitHub/DingDong-Backend/src/Common.Data/obj/Debug/netstandard2.0/DingDong.Backend.Common.Data.dll
-/Volumes/Projects/GitHub/DingDong-Backend/src/Common.Data/obj/Debug/netstandard2.0/DingDong.Backend.Common.Data.pdb

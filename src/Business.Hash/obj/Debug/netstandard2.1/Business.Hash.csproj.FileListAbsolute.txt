@@ -1,9 +1,0 @@
-/Volumes/Projects/GitHub/DingDong-Backend/build/Debug/netstandard2.1/DingDong.Backend.Business.Hash.deps.json
-/Volumes/Projects/GitHub/DingDong-Backend/build/Debug/netstandard2.1/DingDong.Backend.Business.Hash.dll
-/Volumes/Projects/GitHub/DingDong-Backend/build/Debug/netstandard2.1/DingDong.Backend.Business.Hash.pdb
-/Volumes/Projects/GitHub/DingDong-Backend/src/Business.Hash/obj/Debug/netstandard2.1/Business.Hash.csprojAssemblyReference.cache
-/Volumes/Projects/GitHub/DingDong-Backend/src/Business.Hash/obj/Debug/netstandard2.1/Business.Hash.AssemblyInfoInputs.cache
-/Volumes/Projects/GitHub/DingDong-Backend/src/Business.Hash/obj/Debug/netstandard2.1/Business.Hash.AssemblyInfo.cs
-/Volumes/Projects/GitHub/DingDong-Backend/src/Business.Hash/obj/Debug/netstandard2.1/Business.Hash.csproj.CoreCompileInputs.cache
-/Volumes/Projects/GitHub/DingDong-Backend/src/Business.Hash/obj/Debug/netstandard2.1/DingDong.Backend.Business.Hash.dll
-/Volumes/Projects/GitHub/DingDong-Backend/src/Business.Hash/obj/Debug/netstandard2.1/DingDong.Backend.Business.Hash.pdb
