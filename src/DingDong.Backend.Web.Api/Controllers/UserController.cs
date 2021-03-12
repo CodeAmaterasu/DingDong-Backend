@@ -33,7 +33,7 @@ namespace DingDong.Backend.Web.Api.Controllers
         [HttpGet]
         public IActionResult Login(string hashedKey)
         {
-            if (_userManager.FindUserByHashedKey(hashedKey))
+            if (_userManager.ExistHashedKey(hashedKey))
             {
                 return StatusCode(200);
             }
