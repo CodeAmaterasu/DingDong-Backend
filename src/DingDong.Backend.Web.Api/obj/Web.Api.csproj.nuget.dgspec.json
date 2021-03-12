@@ -4,6 +4,120 @@
     "/Volumes/Projects/GitHub/DingDong-Backend/src/DingDong.Backend.Web.Api/Web.Api.csproj": {}
   },
   "projects": {
+    "/Volumes/Projects/GitHub/DingDong-Backend/src/Business.Hash/Business.Hash.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Volumes/Projects/GitHub/DingDong-Backend/src/Business.Hash/Business.Hash.csproj",
+        "projectName": "DingDong.Backend.Business.Hash",
+        "projectPath": "/Volumes/Projects/GitHub/DingDong-Backend/src/Business.Hash/Business.Hash.csproj",
+        "packagesPath": "/Users/stefan/.nuget/packages/",
+        "outputPath": "/Volumes/Projects/GitHub/DingDong-Backend/src/Business.Hash/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/stefan/.config/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "netstandard2.1"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netstandard2.1": {
+            "targetAlias": "netstandard2.1",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netstandard2.1": {
+          "targetAlias": "netstandard2.1",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "NETStandard.Library": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/5.0.201/RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/Volumes/Projects/GitHub/DingDong-Backend/src/Business.User/Business.User.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Volumes/Projects/GitHub/DingDong-Backend/src/Business.User/Business.User.csproj",
+        "projectName": "DingDong.Backend.Business.User",
+        "projectPath": "/Volumes/Projects/GitHub/DingDong-Backend/src/Business.User/Business.User.csproj",
+        "packagesPath": "/Users/stefan/.nuget/packages/",
+        "outputPath": "/Volumes/Projects/GitHub/DingDong-Backend/src/Business.User/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/stefan/.config/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "netstandard2.1"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netstandard2.1": {
+            "targetAlias": "netstandard2.1",
+            "projectReferences": {
+              "/Volumes/Projects/GitHub/DingDong-Backend/src/Business.Hash/Business.Hash.csproj": {
+                "projectPath": "/Volumes/Projects/GitHub/DingDong-Backend/src/Business.Hash/Business.Hash.csproj"
+              },
+              "/Volumes/Projects/GitHub/DingDong-Backend/src/Common.Data/Common.Data.csproj": {
+                "projectPath": "/Volumes/Projects/GitHub/DingDong-Backend/src/Common.Data/Common.Data.csproj"
+              },
+              "/Volumes/Projects/GitHub/DingDong-Backend/src/Communication.Database/Communication.Database.csproj": {
+                "projectPath": "/Volumes/Projects/GitHub/DingDong-Backend/src/Communication.Database/Communication.Database.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netstandard2.1": {
+          "targetAlias": "netstandard2.1",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "NETStandard.Library": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/5.0.201/RuntimeIdentifierGraph.json"
+        }
+      }
+    },
     "/Volumes/Projects/GitHub/DingDong-Backend/src/Common.Data/Common.Data.csproj": {
       "version": "1.0.0",
       "restore": {
@@ -63,6 +177,72 @@
         }
       }
     },
+    "/Volumes/Projects/GitHub/DingDong-Backend/src/Communication.Database/Communication.Database.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Volumes/Projects/GitHub/DingDong-Backend/src/Communication.Database/Communication.Database.csproj",
+        "projectName": "DingDong.Backend.Communication.Database",
+        "projectPath": "/Volumes/Projects/GitHub/DingDong-Backend/src/Communication.Database/Communication.Database.csproj",
+        "packagesPath": "/Users/stefan/.nuget/packages/",
+        "outputPath": "/Volumes/Projects/GitHub/DingDong-Backend/src/Communication.Database/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/stefan/.config/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "netstandard2.1"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netstandard2.1": {
+            "targetAlias": "netstandard2.1",
+            "projectReferences": {
+              "/Volumes/Projects/GitHub/DingDong-Backend/src/Common.Data/Common.Data.csproj": {
+                "projectPath": "/Volumes/Projects/GitHub/DingDong-Backend/src/Common.Data/Common.Data.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netstandard2.1": {
+          "targetAlias": "netstandard2.1",
+          "dependencies": {
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[5.0.4, )"
+            },
+            "MySql.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[5.0.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "NETStandard.Library": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/5.0.201/RuntimeIdentifierGraph.json"
+        }
+      }
+    },
     "/Volumes/Projects/GitHub/DingDong-Backend/src/DingDong.Backend.Web.Api/Web.Api.csproj": {
       "version": "1.0.0",
       "restore": {
@@ -85,6 +265,9 @@
           "netcoreapp3.1": {
             "targetAlias": "netcoreapp3.1",
             "projectReferences": {
+              "/Volumes/Projects/GitHub/DingDong-Backend/src/Business.User/Business.User.csproj": {
+                "projectPath": "/Volumes/Projects/GitHub/DingDong-Backend/src/Business.User/Business.User.csproj"
+              },
               "/Volumes/Projects/GitHub/DingDong-Backend/src/Common.Data/Common.Data.csproj": {
                 "projectPath": "/Volumes/Projects/GitHub/DingDong-Backend/src/Common.Data/Common.Data.csproj"
               }

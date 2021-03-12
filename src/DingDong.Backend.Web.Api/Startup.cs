@@ -39,8 +39,6 @@ namespace DingDong.Backend.Web.Api
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseHttpsRedirection();
-
             app.UseRouting();
 
             app.UseCors("MyPolicy");
