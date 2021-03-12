@@ -22,8 +22,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Business.Validate\Business.User.csproj" />
     <ProjectReference Include="..\Common.Data\Common.Data.csproj" />
-    <ProjectReference Include="..\Communication.Database\Communication.Database.csproj" />
   </ItemGroup>
 
 
