@@ -1,6 +1,6 @@
 ﻿using DingDong.Backend.Communication.Database.Repositories;
+using DingDong.Backend.Business.Hash;
 using System.Security.Cryptography;
-using System.Text;
 
 namespace DingDong.Backend.Common.Data
 {
@@ -12,12 +12,16 @@ namespace DingDong.Backend.Common.Data
         // Repository for user which is connected to the database
         private readonly UserRepository _userRepository;
 
+        // Hashes a input into a HashedKey
+        private readonly Hasher _hasher;
+
         /// <summary>
         /// Constructor
         /// </summary>
         public UserManager()
         {
             _userRepository = new UserRepository();
+            _hasher = new Hasher();
         }
 
         /// <summary>
@@ -36,30 +40,19 @@ namespace DingDong.Backend.Common.Data
             using SHA256 sha256Hash = SHA256.Create();
 
             // Hashes input
-            return GetHash(sha256Hash, source);
+            return _hasher.GetHash(sha256Hash, source);
         }
 
         /// <summary>
-        /// Hashes a input with the given Hash-Algorithm
+        /// Accesses database and tries to find a user based on the hashed-key
         /// </summary>
-        /// <param name="hashAlgorithm">Used algorithm to hash</param>
-        /// <param name="input">Source-Data to hash</param>
-        /// <returns>Hashed string of the source-Data/returns>
-        private static string GetHash(HashAlgorithm hashAlgorithm, string input)
+        /// <param name="hashedKey">Key to search for</param>
+        /// <returns>Indicates whether a user was successfully found our not</returns>
+        public bool ExistHashedKey(string key)
         {
-            var sBuilder = new StringBuilder();
+            var task = _userRepository.FindByKey(key);
 
-            // Hash input and convert into byte-array
-            byte[] data = hashAlgorithm.ComputeHash(Encoding.UTF8.GetBytes(input));
-
-            // Convert hashed-input into Hex
-            for (int i = 0; i < data.Length; i++)
-            {
-                sBuilder.Append(data[i].ToString("x2"));
-            }
-
-            // Returns Hashed-Hex-input as a string
-            return sBuilder.ToString();
+            return task.Result != null;
         }
 
         /// <summary>
@@ -107,19 +100,6 @@ namespace DingDong.Backend.Common.Data
             {
                 return false;
             }
-        }
-        /// <summary>
-        /// Accesses database and tries to find a user based on the hashed-key
-        /// </summary>
-        /// <param name="hashedKey">Key to search for</param>
-        /// <returns>Indicates whether a user was successfully found our not</returns>
-        public bool FindUserByHashedKey(string hashedKey)
-        {
-            if (string.IsNullOrEmpty(hashedKey)) return false;
-
-            var task= _userRepository.FindByKey(hashedKey);
-
-            return task.Result != null;
         }
     }
 }

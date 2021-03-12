@@ -1,0 +1,31 @@
+﻿<Properties StartupConfiguration="{2BF6F933-5ECB-4861-A9CA-293F3E10B108}|Default">
+  <MonoDevelop.Ide.ItemProperties.Business.Hash FirstBuild="True" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="src/Business.User/Business.User.csproj">
+    <Files>
+      <File FileName="src/Business.User/UserManager.cs" Line="15" Column="41" />
+      <File FileName="src/Business.Hash/Hasher.cs" Line="19" Column="15" />
+      <File FileName="src/Business.Hash/Business.Hash.csproj" Line="1" Column="1" />
+      <File FileName="src/Business.User/Business.User.csproj" Line="23" Column="1" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="DingDong.Backend" expanded="True">
+            <Node name="Business.Hash" expanded="True" />
+            <Node name="Business.User" expanded="True" selected="True" />
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.ItemProperties.Web.Api PreferredExecutionTarget="/Applications/Safari.app" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore>
+      <Breakpoint file="/Volumes/Projects/GitHub/DingDong-Backend/src/Business.User/UserManager.cs" relfile="src/Business.User/UserManager.cs" line="33" column="1" />
+      <Breakpoint file="/Volumes/Projects/GitHub/DingDong-Backend/src/Business.User/UserManager.cs" relfile="src/Business.User/UserManager.cs" line="33" column="1" />
+    </BreakpointStore>
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MultiItemStartupConfigurations />
+</Properties>
