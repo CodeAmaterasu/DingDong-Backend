@@ -1,5 +1,6 @@
 ﻿using DingDong.Backend.Common.Data;
 using Microsoft.AspNetCore.Mvc;
+using DingDong.Backend.Web.Api.Util;
 
 namespace DingDong.Backend.Web.Api.Controllers
 {
@@ -19,15 +20,17 @@ namespace DingDong.Backend.Web.Api.Controllers
         {
             var userValide = _userManager.Validate(user);
 
-            if (!userValide) return StatusCode(403);
-
+            if (!userValide)
+            {
+                return HttpCode.Unauthorized.GetStatusCodeResult();
+            }
             user.HashedKey = _userManager.GenerateHashedKey(user.Firstname, user.Lastname);
 
             if (_userManager.AddUser(user))
             {
-                return StatusCode(200);
+                return HttpCode.OK.GetStatusCodeResult();
             }
-            return StatusCode(500);
+            return HttpCode.InternalServerError.GetStatusCodeResult();
         }
 
         [HttpGet]
@@ -35,9 +38,9 @@ namespace DingDong.Backend.Web.Api.Controllers
         {
             if (_userManager.ExistHashedKey(hashedKey))
             {
-                return StatusCode(200);
+                return HttpCode.OK.GetStatusCodeResult();
             }
-            return StatusCode(403);
+            return HttpCode.Unauthorized.GetStatusCodeResult();
         }
     }
 }
