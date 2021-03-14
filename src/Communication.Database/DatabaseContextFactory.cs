@@ -1,5 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using DingDong.Backend.Common.Data.Exceptions;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
+using System;
 
 namespace DingDong.Backend.Communication.Database
 {
@@ -15,10 +17,18 @@ namespace DingDong.Backend.Communication.Database
         /// <returns></returns>
         public DatabaseContext CreateDbContext(string[] args = null)
         {
-            var options = new DbContextOptionsBuilder<DatabaseContext>();
-            options.UseMySQL("server=localhost;database=dingdong;user=root;password=root");
+            try
+            {
+                var options = new DbContextOptionsBuilder<DatabaseContext>();
+                options.UseMySQL("server=localhost;database=dingdong;user=root;password=root");
 
-            return new DatabaseContext(options.Options);
+                return new DatabaseContext(options.Options);
+            }
+            catch (Exception e)
+            {
+
+                throw new DatabaseException(DatabaseExceptionType.DatabaseConnectionFailed, "Failed to connect to the database", e);
+            }
         }
     }
 }

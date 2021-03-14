@@ -1,6 +1,7 @@
 ﻿using DingDong.Backend.Communication.Database.Repositories;
 using DingDong.Backend.Business.Hash;
 using System.Security.Cryptography;
+using DingDong.Backend.Common.Data.Exceptions;
 
 namespace DingDong.Backend.Common.Data
 {
@@ -50,9 +51,16 @@ namespace DingDong.Backend.Common.Data
         /// <returns>Indicates whether a user was successfully found our not</returns>
         public bool ExistHashedKey(string key)
         {
-            var task = _userRepository.FindByKey(key);
+            try
+            {
+                var task = _userRepository.FindByKey(key);
 
-            return task.Result != null;
+                return task.Result != null;
+            }
+            catch (DatabaseException)
+            {
+                return false;
+            }
         }
 
         /// <summary>
@@ -76,8 +84,15 @@ namespace DingDong.Backend.Common.Data
         /// <returns>Indicates whether the given user got successfully added or not</returns>
         public bool AddUser(User user)
         {
-            var task = _userRepository.Add(user);
-            return task.Result;
+            try
+            {
+                var task = _userRepository.Add(user);
+                return task.Result;
+            }
+            catch (DatabaseException)
+            {
+                return false;
+            }
         }
 
         /// <summary>
