@@ -6,24 +6,38 @@ using System.Threading.Tasks;
 
 namespace DingDong.Backend.Communication.Database.Repositories
 {
+    /// <summary>
+    /// Connection to the <see cref="User"/>-Table in the database
+    /// </summary>
     public class UserRepository
     {
-        /// <summary>
-        /// Factory for creating instances of the class which connects to the database
-        /// </summary>
+        // Factory for creating instances of the class which connects to the database
         protected readonly DatabaseContextFactory DatabaseContextFactory;
 
+        /// <summary>
+        /// Constructor
+        /// </summary>
         public UserRepository()
         {
             DatabaseContextFactory = new DatabaseContextFactory();
         }
 
+        /// <summary>
+        /// Tries to add a <see cref="User"/> into the database
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns></returns>
         public async Task<bool> Add(User user)
         {
             try
             {
+                // Connects to the database
                 await using var context = DatabaseContextFactory.CreateDbContext();
+
+                // Adds the user to the database
                 var result = context.Set<User>().Add(user);
+
+                // Saves the changes
                 await context.SaveChangesAsync();
 
                 return result != null;
@@ -34,6 +48,11 @@ namespace DingDong.Backend.Communication.Database.Repositories
             }
         }
 
+        /// <summary>
+        /// Tries to find a user in the database based on the hashed key
+        /// </summary>
+        /// <param name="hashedKey">Key to search for</param>
+        /// <returns>Entire <see cref="User"/> object which corresponds with the given hashed key</returns>
         public async Task<User> FindByKey(string hashedKey)
         {
             try
@@ -49,6 +68,11 @@ namespace DingDong.Backend.Communication.Database.Repositories
             }
         }
 
+        /// <summary>
+        /// Tries to find a user in the database based on the email
+        /// </summary>
+        /// <param name="email">Email to search for</param>
+        /// <returns>Entire <see cref="User"/> object which corresponds with the given email</returns>
         public async Task<User> FindByEmail(string email)
         {
             try
