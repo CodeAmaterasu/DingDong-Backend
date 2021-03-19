@@ -32,10 +32,10 @@ namespace DingDong.Backend.Common.Data
         /// <param name="firstname">Firstname of the user</param>
         /// <param name="lastname">Lastname of the user</param>
         /// <returns>Hashed-Key</returns>
-        public string GenerateHashedKey(string firstname, string lastname)
+        public string GenerateHashedKey(string firstname, string lastname, string email)
         {
             // Create source-string
-            string source = firstname + lastname;
+            string source = firstname + lastname + email;
 
             // Used algorithm for hashing
             using SHA256 sha256Hash = SHA256.Create();
@@ -106,7 +106,7 @@ namespace DingDong.Backend.Common.Data
             try
             {
                 // Check if Email-Addrress is valid
-                var addr = new System.Net.Mail.MailAddress(email);
+                _ = new System.Net.Mail.MailAddress(email);
 
                 // Check if email is already in use
                 return _userRepository.FindByEmail(email) == null;

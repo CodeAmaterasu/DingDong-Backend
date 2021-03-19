@@ -37,7 +37,7 @@ namespace DingDong.Backend.Web.Api.Controllers
             if (!userValide) return HttpCode.BadRequest.GetStatusCodeResult();
 
             // Generates a hashed string based on the firstname and lastname
-            user.HashedKey = _userManager.GenerateHashedKey(user.Firstname, user.Lastname);
+            user.HashedKey = _userManager.GenerateHashedKey(user.Firstname, user.Lastname, user.Email);
 
             // Returns OK-Code when the user was successfully added
             if (_userManager.AddUser(user)) return HttpCode.OK.GetStatusCodeResult();
@@ -47,10 +47,10 @@ namespace DingDong.Backend.Web.Api.Controllers
         }
 
         /// <summary>
-        /// 
+        /// Tries to find a database-entry with the given hashed-key
         /// </summary>
-        /// <param name="hashedKey"></param>
-        /// <returns></returns>
+        /// <param name="hashedKey">Key to find</param>
+        /// <returns>Corresponding HTTP-Code indicating whether the request was successful or not</returns>
         [HttpGet]
         public IActionResult Login(string hashedKey)
         {
