@@ -1,9 +1,9 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
-    <AssemblyName>DingDong.Backend.Web.Api</AssemblyName>
-    <RootNamespace>DingDong.Backend.Web.Api</RootNamespace>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <AssemblyName>DingDong.Backend.Business.User</AssemblyName>
+    <RootNamespace>DingDong.Backend.Business.User</RootNamespace>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -15,16 +15,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.4">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\Common.Data\Common.Data.csproj" />
     <ProjectReference Include="..\Communication.Database\Communication.Database.csproj" />
+    <ProjectReference Include="..\Business.Hash\Business.Hash.csproj" />
   </ItemGroup>
-
 
 </Project>
