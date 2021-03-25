@@ -60,5 +60,28 @@ namespace DingDong.Backend.Web.Api.Controllers
             // Returns a Unauthorized-Code when the hashed string was not found
             else return HttpCode.Unauthorized.GetStatusCodeResult();
         }
+
+
+        [HttpPost]
+        [Route("sign")]
+        public IActionResult Sign()
+        {
+            var hashedKey = _userManager.SignOldestUnsigned();
+            var returnValue = new { hashedKey = hashedKey };
+
+            if (!string.IsNullOrEmpty(hashedKey)) return HttpCode.OK.GetObjectResult(returnValue);
+            else return HttpCode.InternalServerError.GetObjectResult(returnValue);
+        }
+
+        [HttpPost]
+        [Route("unsign")]
+        public IActionResult Unsign()
+        {
+            var isUnsigned = _userManager.UnsignNewsetSigned();
+            var returnValue = new { isUnsigned = isUnsigned };
+
+            if (isUnsigned) return HttpCode.OK.GetObjectResult(returnValue);
+            else return HttpCode.InternalServerError.GetObjectResult(returnValue);
+        }
     }
 }

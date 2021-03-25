@@ -16,6 +16,25 @@ namespace DingDong.Backend.Communication.Database.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 64)
                 .HasAnnotation("ProductVersion", "5.0.4");
 
+            modelBuilder.Entity("DingDong.Backend.Common.Data.BadgeRegister", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<bool>("IsSet")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<string>("UserID")
+                        .HasColumnType("varchar(767)");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("UserID");
+
+                    b.ToTable("BadgeRegister");
+                });
+
             modelBuilder.Entity("DingDong.Backend.Common.Data.User", b =>
                 {
                     b.Property<string>("HashedKey")
@@ -33,6 +52,15 @@ namespace DingDong.Backend.Communication.Database.Migrations
                     b.HasKey("HashedKey");
 
                     b.ToTable("User");
+                });
+
+            modelBuilder.Entity("DingDong.Backend.Common.Data.BadgeRegister", b =>
+                {
+                    b.HasOne("DingDong.Backend.Common.Data.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserID");
+
+                    b.Navigation("User");
                 });
 #pragma warning restore 612, 618
         }

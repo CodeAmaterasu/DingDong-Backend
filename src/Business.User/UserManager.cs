@@ -2,6 +2,7 @@
 using DingDong.Backend.Business.Hash;
 using System.Security.Cryptography;
 using DingDong.Backend.Common.Data.Exceptions;
+using System;
 
 namespace DingDong.Backend.Common.Data
 {
@@ -110,6 +111,31 @@ namespace DingDong.Backend.Common.Data
 
                 // Check if email is already in use
                 return _userRepository.FindByEmail(email) == null;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        public string SignOldestUnsigned()
+        {
+            try
+            {
+                return _userRepository.SignOldestUnsigned().Result;
+            }
+            catch
+            {
+                return "";
+            }
+        }
+
+
+        public bool UnsignNewsetSigned()
+        {
+            try
+            {
+                return _userRepository.UnsignNewestSigned().Result;
             }
             catch
             {
