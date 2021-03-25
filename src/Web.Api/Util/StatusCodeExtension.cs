@@ -10,7 +10,7 @@ namespace DingDong.Backend.Web.Api.Util
         OK = 200,
         BadRequest = 400,
         Unauthorized = 401,
-        InternalServerError = 502
+        InternalServerError = 500
     }
 
     /// <summary>
@@ -18,6 +18,20 @@ namespace DingDong.Backend.Web.Api.Util
     /// </summary>
     public static class Extensions
     {
+        /// <summary>
+        /// Gets the corresponding <see cref="ObjectResult"/>
+        /// </summary>
+        /// <param name="statusCode">HTTP-Status-Code</param>
+        /// <param name="value">The value to store in the result</param>
+        /// <returns></returns>
+        public static ObjectResult GetObjectResult(this HttpCode statusCode, object value)
+        {
+            return new ObjectResult(value)
+            {
+                 StatusCode = (int) statusCode
+            };
+        }
+
         /// <summary>
         /// Gets the corresponding <see cref="StatusCodeResult"/>
         /// </summary>

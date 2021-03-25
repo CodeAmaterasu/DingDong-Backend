@@ -27,5 +27,7 @@ namespace DingDong.Backend.Common.Data
         /// </summary>
         [Key]
         public string HashedKey { get; set; }
+
+        public bool IsSigned { get; set; }
     }
 }

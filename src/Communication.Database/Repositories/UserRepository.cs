@@ -2,6 +2,7 @@
 using DingDong.Backend.Common.Data.Exceptions;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace DingDong.Backend.Communication.Database.Repositories
@@ -83,6 +84,55 @@ namespace DingDong.Backend.Communication.Database.Repositories
             catch (Exception e)
             {
                 throw new DatabaseException(DatabaseExceptionType.GetFailed, "Exception with finding User in Database based on Hashed-Key", e);
+            }
+        }
+
+
+        /// <summary>
+        /// Tries to sign the oldest user which isn't signed.
+        /// </summary>
+        /// <returns>Hashed-Key of this user</returns>
+        public async Task<string> SignOldestUnsigned()
+        {
+            try
+            {
+                await using var context = DatabaseContextFactory.CreateDbContext();
+                var user = await context.Set<User>().FirstOrDefaultAsync(u => u.IsSigned == false);
+
+                user.IsSigned = true;
+                context.Set<User>().Update(user);
+
+                await context.SaveChangesAsync();
+
+                return user.HashedKey;
+            }
+            catch (Exception e)
+            {
+                throw new DatabaseException(DatabaseExceptionType.GetFailed, "Exception with signing oldest unsigned user in the Database", e);
+            }
+        }
+
+        /// <summary>
+        /// Tries to unsign the newest user which is signed.
+        /// </summary>
+        /// <returns>Indicates whether a user got unsigned or not</returns>
+        public async Task<bool> UnsignNewestSigned()
+        {
+            try
+            {
+                await using var context = DatabaseContextFactory.CreateDbContext();
+                var user = await context.Set<User>().LastOrDefaultAsync(u => u.IsSigned == true);
+
+                user.IsSigned = false;
+                context.Set<User>().Update(user);
+
+                await context.SaveChangesAsync();
+
+                return true;
+            }
+            catch (Exception e)
+            {
+                throw new DatabaseException(DatabaseExceptionType.GetFailed, "Exception with unsigning newest signed user in the Database", e);
             }
         }
     }
