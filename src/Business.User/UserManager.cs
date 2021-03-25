@@ -2,7 +2,6 @@
 using DingDong.Backend.Business.Hash;
 using System.Security.Cryptography;
 using DingDong.Backend.Common.Data.Exceptions;
-using System;
 
 namespace DingDong.Backend.Common.Data
 {
@@ -131,11 +130,12 @@ namespace DingDong.Backend.Common.Data
         }
 
 
-        public bool UnsignNewsetSigned()
+        public bool Delete(string input)
         {
             try
             {
-                return _userRepository.UnsignNewestSigned().Result;
+                if (CheckEmail(input)) return _userRepository.DeleteWithEmail(input).Result;
+                else return _userRepository.DeleteWithHashedKey(input).Result;
             }
             catch
             {
