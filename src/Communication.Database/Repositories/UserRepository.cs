@@ -2,7 +2,6 @@
 using DingDong.Backend.Common.Data.Exceptions;
 using Microsoft.EntityFrameworkCore;
 using System;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace DingDong.Backend.Communication.Database.Repositories
@@ -133,6 +132,54 @@ namespace DingDong.Backend.Communication.Database.Repositories
             catch (Exception e)
             {
                 throw new DatabaseException(DatabaseExceptionType.GetFailed, "Exception with unsigning newest signed user in the Database", e);
+            }
+        }
+
+        /// <summary>
+        /// Tries to delete an existing user based on the given hashed-key
+        /// </summary>
+        /// <param name="hashedKey">Key to search for</param>
+        /// <returns>Indicates whether the user got successfully removed or not</returns>
+        public async Task<bool> DeleteWithHashedKey(string hashedKey)
+        {
+            try
+            {
+                await using var context = DatabaseContextFactory.CreateDbContext();
+                var user = await context.Set<User>().LastOrDefaultAsync(u => u.HashedKey == hashedKey);
+
+                context.Set<User>().Remove(user);
+
+                await context.SaveChangesAsync();
+
+                return true;
+            }
+            catch (Exception e)
+            {
+                throw new DatabaseException(DatabaseExceptionType.GetFailed, "Exception with removing user in database based on hashed-key", e);
+            }
+        }
+
+        /// <summary>
+        /// Tries to delete an existing user based on the given email
+        /// </summary>
+        /// <param name="email">Email to search for</param>
+        /// <returns>whether the user got successfully removed or not</returns>
+        public async Task<bool> DeleteWithEmail(string email)
+        {
+            try
+            {
+                await using var context = DatabaseContextFactory.CreateDbContext();
+                var user = await context.Set<User>().LastOrDefaultAsync(u => u.Email == email);
+
+                context.Set<User>().Remove(user);
+
+                await context.SaveChangesAsync();
+
+                return true;
+            }
+            catch (Exception e)
+            {
+                throw new DatabaseException(DatabaseExceptionType.GetFailed, "Exception with removing user in database based on email", e);
             }
         }
     }

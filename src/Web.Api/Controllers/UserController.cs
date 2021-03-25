@@ -61,7 +61,10 @@ namespace DingDong.Backend.Web.Api.Controllers
             else return HttpCode.Unauthorized.GetStatusCodeResult();
         }
 
-
+        /// <summary>
+        /// Tries to sign an existing user in the database
+        /// </summary>
+        /// <returns>Corresponding HTTP-Code indicating whether the request was successful or not</returns>
         [HttpPost]
         [Route("sign")]
         public IActionResult Sign()
@@ -73,14 +76,18 @@ namespace DingDong.Backend.Web.Api.Controllers
             else return HttpCode.InternalServerError.GetObjectResult(returnValue);
         }
 
-        [HttpPost]
-        [Route("unsign")]
-        public IActionResult Unsign()
+        /// <summary>
+        /// Tries to delete an existing user from the database
+        /// </summary>
+        /// <param name="input">input to search for. Can be an email adress or a hashed-key</param>
+        /// <returns>Corresponding HTTP-Code indicating whether the request was successful or not</returns>
+        [HttpDelete]
+        public IActionResult Unsign(string input)
         {
-            var isUnsigned = _userManager.UnsignNewsetSigned();
-            var returnValue = new { isUnsigned = isUnsigned };
+            var isRemoved = _userManager.Delete(input);
+            var returnValue = new { IsRemoved = isRemoved };
 
-            if (isUnsigned) return HttpCode.OK.GetObjectResult(returnValue);
+            if (isRemoved) return HttpCode.OK.GetObjectResult(returnValue);
             else return HttpCode.InternalServerError.GetObjectResult(returnValue);
         }
     }
