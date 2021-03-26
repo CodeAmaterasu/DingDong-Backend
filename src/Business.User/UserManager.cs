@@ -117,6 +117,10 @@ namespace DingDong.Backend.Common.Data
             }
         }
 
+        /// <summary>
+        /// Signs the oldest unsigned user in the database
+        /// </summary>
+        /// <returns>Hashed-Key of the user</returns>
         public string SignOldestUnsigned()
         {
             try
@@ -129,7 +133,11 @@ namespace DingDong.Backend.Common.Data
             }
         }
 
-
+        /// <summary>
+        /// Deletes an existing user from the database
+        /// </summary>
+        /// <param name="input">Input to search for. Can be email or hashed-key</param>
+        /// <returns>Indicates whether the user got removed or not</returns>
         public bool Delete(string input)
         {
             try
