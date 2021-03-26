@@ -1,0 +1,93 @@
+@startuml CLassDiagram
+
+package "Common.Data" {
+    class User {
+        + HashedKey: string
+        + Firstname: string
+        + Lastname: string
+        + Email: string
+        + IsSigned: bool
+    }
+}
+
+package "Web.Api" {
+    class TestController {
+        TestConnection(): IActionResult
+    }
+
+    class UserController {
+        - _userManager: UserManager
+        + Register(user): IActionResult
+        + Login(hashedKey): IActionResult
+        + Sign(): IActionResult
+        + Unsign(input): IActionResult
+    }
+
+    enum HttpCode {
+        OK: 200
+        BadRequest: 400
+        Unauthorized: 401
+        InternalServerError: 500
+    }
+
+    class StatusCodeExtension {
+        + GetObjectResult(statusCode, value): ObjectResult
+        + StatusCodeResult(statusCode): StatusCodeResult
+    }
+}
+
+package "Business.User" {
+    class UserManager {
+        - _userRepository: UserRepository
+        - _hasher: Hasher
+
+        + GenerateHashedKey(firstname, lastname, email): string
+        + ExistHashedKey(key): bool
+        + Validate(user): bool
+        + AddUSer(user): bool
+        + CheckEmail(email): bool
+        + SignOldestUnsigned(): string
+        + Delete(input): bool
+    }
+}
+
+package "Business.Hash" {
+    class Hasher {
+        + GetHash(HashAlgorithm, input): string
+    }
+}
+
+package "Communication.Database" {
+    class UserRepository {
+        # DatabaseContextFactory: DatabaseContextFactory
+
+        + Add(user): Task<bool>
+        + FindByKey(hashedKey): Task<User>
+        + FindByEmail(email): Task<User>
+        + SignOldestUnsigned(): Task<string>
+        + DeleteWithHashedKey(hashedKey): Task<bool>
+        + DeleteWithEmail(email): Task<bool>
+    }
+
+    class DatabaseContext {
+        + User: DbSet<User>
+    }
+
+    class DatabaseContextFactory {
+        + CreateDbContext(args): DatabaseContext
+    }
+}
+
+UserController ..|> User
+UserManager ..|> User
+UserRepository ..|> User
+UserManager --* Hasher
+UserManager --* UserRepository
+UserController --* UserManager
+UserController ..|> HttpCode
+TestController ..|> HttpCode
+HttpCode ..|> StatusCodeExtension
+UserRepository --* DatabaseContextFactory
+DatabaseContextFactory ..|> DatabaseContext
+
+@enduml

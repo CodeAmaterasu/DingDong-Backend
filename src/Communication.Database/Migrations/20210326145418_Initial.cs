@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
+using MySql.EntityFrameworkCore.Metadata;
 
 namespace DingDong.Backend.Communication.Database.Migrations
 {
@@ -10,14 +11,17 @@ namespace DingDong.Backend.Communication.Database.Migrations
                 name: "User",
                 columns: table => new
                 {
-                    HashedKey = table.Column<string>(type: "varchar(767)", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySQL:ValueGenerationStrategy", MySQLValueGenerationStrategy.IdentityColumn),
                     Firstname = table.Column<string>(type: "text", nullable: true),
                     Lastname = table.Column<string>(type: "text", nullable: true),
-                    Email = table.Column<string>(type: "text", nullable: true)
+                    Email = table.Column<string>(type: "text", nullable: true),
+                    IsSigned = table.Column<bool>(type: "tinyint(1)", nullable: false),
+                    Guid = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_User", x => x.HashedKey);
+                    table.PrimaryKey("PK_User", x => x.Id);
                 });
         }
 

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using DingDong.Backend.Web.Api.Util;
+using Microsoft.AspNetCore.Mvc;
 
 namespace DingDong.Backend.Web.Api.Controllers
 {
@@ -14,9 +15,11 @@ namespace DingDong.Backend.Web.Api.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        public ActionResult TestConnection()
+        public IActionResult TestConnection()
         {
-            return Ok(new { message = "Ich esse gerne Pastelfarben!" });
+            Response.Headers.Add("Access-Control-Allow-Origin", "*");
+            var returnvalue = new { message = "Ich esse gerne Pastelfarben!" };
+            return HttpCode.OK.GetObjectResult(returnvalue);
         }
     }
 }

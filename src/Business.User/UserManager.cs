@@ -1,7 +1,6 @@
 ﻿using DingDong.Backend.Communication.Database.Repositories;
-using DingDong.Backend.Business.Hash;
-using System.Security.Cryptography;
 using DingDong.Backend.Common.Data.Exceptions;
+using System;
 
 namespace DingDong.Backend.Common.Data
 {
@@ -13,51 +12,32 @@ namespace DingDong.Backend.Common.Data
         // Repository for user which is connected to the database
         private readonly UserRepository _userRepository;
 
-        // Hashes a input into a HashedKey
-        private readonly Hasher _hasher;
-
         /// <summary>
         /// Constructor
         /// </summary>
         public UserManager()
         {
             _userRepository = new UserRepository();
-            _hasher = new Hasher();
         }
 
         /// <summary>
-        /// Generates a Hashed-Key with the firstname and lastname
-        /// of the user
+        /// Accesses database and tries to find a user based on the Guid
         /// </summary>
-        /// <param name="firstname">Firstname of the user</param>
-        /// <param name="lastname">Lastname of the user</param>
-        /// <returns>Hashed-Key</returns>
-        public string GenerateHashedKey(string firstname, string lastname, string email)
-        {
-            // Create source-string
-            string source = firstname + lastname + email;
-
-            // Used algorithm for hashing
-            using SHA256 sha256Hash = SHA256.Create();
-
-            // Hashes input
-            return _hasher.GetHash(sha256Hash, source);
-        }
-
-        /// <summary>
-        /// Accesses database and tries to find a user based on the hashed-key
-        /// </summary>
-        /// <param name="hashedKey">Key to search for</param>
+        /// <param name="guid">Guid to search for</param>
         /// <returns>Indicates whether a user was successfully found our not</returns>
-        public bool ExistHashedKey(string key)
+        public bool ExistGuid(string guid)
         {
             try
             {
-                var task = _userRepository.FindByKey(key);
+                var task = _userRepository.FindByGuid(guid);
 
                 return task.Result != null;
             }
             catch (DatabaseException)
+            {
+                return false;
+            }
+            catch (AggregateException)
             {
                 return false;
             }
@@ -109,7 +89,42 @@ namespace DingDong.Backend.Common.Data
                 _ = new System.Net.Mail.MailAddress(email);
 
                 // Check if email is already in use
-                return _userRepository.FindByEmail(email) == null;
+                 var task = _userRepository.FindByEmail(email);
+                return task.Result == null;
+            }
+            catch (DatabaseException e)
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Signs the oldest unsigned user in the database
+        /// </summary>
+        /// <returns>Guid of the user</returns>
+        public bool AssignBadgeToUser(string guid)
+        {
+            try
+            {
+                return _userRepository.AddGuidToUnsigned(guid).Result;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Deletes an existing user from the database
+        /// </summary>
+        /// <param name="input">Input to search for. Can be email or Guid</param>
+        /// <returns>Indicates whether the user got removed or not</returns>
+        public bool Delete(string input)
+        {
+            try
+            {
+                if (CheckEmail(input)) return _userRepository.DeleteWithEmail(input).Result;
+                else return _userRepository.DeleteWithGuid(input).Result;
             }
             catch
             {

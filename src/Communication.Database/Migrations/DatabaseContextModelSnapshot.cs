@@ -18,8 +18,9 @@ namespace DingDong.Backend.Communication.Database.Migrations
 
             modelBuilder.Entity("DingDong.Backend.Common.Data.User", b =>
                 {
-                    b.Property<string>("HashedKey")
-                        .HasColumnType("varchar(767)");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
 
                     b.Property<string>("Email")
                         .HasColumnType("text");
@@ -27,10 +28,16 @@ namespace DingDong.Backend.Communication.Database.Migrations
                     b.Property<string>("Firstname")
                         .HasColumnType("text");
 
+                    b.Property<string>("Guid")
+                        .HasColumnType("text");
+
+                    b.Property<bool>("IsSigned")
+                        .HasColumnType("tinyint(1)");
+
                     b.Property<string>("Lastname")
                         .HasColumnType("text");
 
-                    b.HasKey("HashedKey");
+                    b.HasKey("Id");
 
                     b.ToTable("User");
                 });

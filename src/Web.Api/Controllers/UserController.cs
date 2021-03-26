@@ -36,9 +36,6 @@ namespace DingDong.Backend.Web.Api.Controllers
             // Returns Bad-Request-Code when important data is null
             if (!userValide) return HttpCode.BadRequest.GetStatusCodeResult();
 
-            // Generates a hashed string based on the firstname and lastname
-            user.HashedKey = _userManager.GenerateHashedKey(user.Firstname, user.Lastname, user.Email);
-
             // Returns OK-Code when the user was successfully added
             if (_userManager.AddUser(user)) return HttpCode.OK.GetStatusCodeResult();
 
@@ -47,18 +44,48 @@ namespace DingDong.Backend.Web.Api.Controllers
         }
 
         /// <summary>
-        /// Tries to find a database-entry with the given hashed-key
+        /// Tries to find a database-entry with the given guid
         /// </summary>
-        /// <param name="hashedKey">Key to find</param>
+        /// <param name="guid">Guid to find</param>
         /// <returns>Corresponding HTTP-Code indicating whether the request was successful or not</returns>
         [HttpGet]
-        public IActionResult Login(string hashedKey)
+        public IActionResult Login(string guid)
         {
-            // Returns OK-Code when a Hashed-Key was found in the database
-            if (_userManager.ExistHashedKey(hashedKey)) return HttpCode.OK.GetStatusCodeResult();
+            // Returns OK-Code when guid was found in the database
+            if (_userManager.ExistGuid(guid)) return HttpCode.OK.GetStatusCodeResult();
 
-            // Returns a Unauthorized-Code when the hashed string was not found
+            // Returns a Unauthorized-Code when guid was not found
             else return HttpCode.Unauthorized.GetStatusCodeResult();
+        }
+
+        /// <summary>
+        /// Tries to sign an existing user in the database
+        /// </summary>
+        /// <returns>Corresponding HTTP-Code indicating whether the request was successful or not</returns>
+        [HttpPost]
+        [Route("sign")]
+        public IActionResult Sign(Badge badge)
+        {
+            if (string.IsNullOrEmpty(badge.BadgeGuid)) return HttpCode.BadRequest.GetStatusCodeResult();
+            var isAssigned = _userManager.AssignBadgeToUser(badge.BadgeGuid);
+
+            if (isAssigned) return HttpCode.OK.GetStatusCodeResult();
+            else return HttpCode.InternalServerError.GetStatusCodeResult();
+        }
+
+        /// <summary>
+        /// Tries to delete an existing user from the database
+        /// </summary>
+        /// <param name="input">input to search for. Can be an email adress or a guid</param>
+        /// <returns>Corresponding HTTP-Code indicating whether the request was successful or not</returns>
+        [HttpDelete]
+        public IActionResult Delete(string input)
+        {
+            var isRemoved = _userManager.Delete(input);
+            var returnValue = new { IsRemoved = isRemoved };
+
+            if (isRemoved) return HttpCode.OK.GetObjectResult(returnValue);
+            else return HttpCode.InternalServerError.GetObjectResult(returnValue);
         }
     }
 }

@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Cors.Infrastructure;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -8,6 +9,8 @@ namespace DingDong.Backend.Web.Api
 {
     public class Startup
     {
+        readonly string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -22,11 +25,12 @@ namespace DingDong.Backend.Web.Api
 
             services.AddCors(options =>
             {
-                options.AddPolicy("MyPolicy", builder =>
+                options.AddPolicy(MyAllowSpecificOrigins,
+                builder =>
                 {
-                    builder.AllowAnyOrigin();
-                    builder.AllowAnyHeader();
-                    builder.AllowAnyMethod();
+                    builder.WithOrigins("*").AllowAnyOrigin()
+                                        .AllowAnyHeader()
+                                        .AllowAnyMethod();
                 });
             });
         }
@@ -39,9 +43,11 @@ namespace DingDong.Backend.Web.Api
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseCors();
+
             app.UseRouting();
 
-            app.UseCors("MyPolicy");
+            app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin().SetIsOriginAllowed(origin => true));
 
             app.UseAuthorization();
 
