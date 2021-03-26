@@ -49,22 +49,22 @@ namespace DingDong.Backend.Communication.Database.Repositories
         }
 
         /// <summary>
-        /// Tries to find a user in the database based on the hashed key
+        /// Tries to find a user in the database based on the guid
         /// </summary>
-        /// <param name="hashedKey">Key to search for</param>
-        /// <returns>Entire <see cref="User"/> object which corresponds with the given hashed key</returns>
-        public async Task<User> FindByKey(string hashedKey)
+        /// <param name="guid">Guid to search for</param>
+        /// <returns>Entire <see cref="User"/> object which corresponds with the given guid</returns>
+        public async Task<User> FindByGuid(string guid)
         {
             try
             {
                 await using var context = DatabaseContextFactory.CreateDbContext();
-                var res = await context.User.FirstOrDefaultAsync(u => u.HashedKey == hashedKey);
+                var res = await context.User.FirstOrDefaultAsync(u => u.Guid == guid);
 
                 return res;
             }
             catch (Exception e)
             {
-                throw new DatabaseException(DatabaseExceptionType.GetFailed, "Exception with finding User in Database based on Hashed-Key", e);
+                throw new DatabaseException(DatabaseExceptionType.GetFailed, "Exception with finding User in Database based on guid", e);
             }
         }
 
@@ -82,7 +82,7 @@ namespace DingDong.Backend.Communication.Database.Repositories
             }
             catch (Exception e)
             {
-                throw new DatabaseException(DatabaseExceptionType.GetFailed, "Exception with finding User in Database based on Hashed-Key", e);
+                throw new DatabaseException(DatabaseExceptionType.GetFailed, "Exception with finding User in Database based on email", e);
             }
         }
 
@@ -90,8 +90,8 @@ namespace DingDong.Backend.Communication.Database.Repositories
         /// <summary>
         /// Tries to sign the oldest user which isn't signed.
         /// </summary>
-        /// <returns>Hashed-Key of this user</returns>
-        public async Task<string> SignOldestUnsigned()
+        /// <returns>True = success, false = error</returns>
+        public async Task<bool> AddGuidToUnsigned(string guid)
         {
             try
             {
@@ -99,11 +99,12 @@ namespace DingDong.Backend.Communication.Database.Repositories
                 var user = await context.Set<User>().FirstOrDefaultAsync(u => u.IsSigned == false);
 
                 user.IsSigned = true;
+                user.Guid = guid;
+
                 context.Set<User>().Update(user);
 
                 await context.SaveChangesAsync();
-
-                return user.HashedKey;
+                return true;
             }
             catch (Exception e)
             {
@@ -136,16 +137,16 @@ namespace DingDong.Backend.Communication.Database.Repositories
         }
 
         /// <summary>
-        /// Tries to delete an existing user based on the given hashed-key
+        /// Tries to delete an existing user based on the given guid
         /// </summary>
-        /// <param name="hashedKey">Key to search for</param>
+        /// <param name="guid">Guid to search for</param>
         /// <returns>Indicates whether the user got successfully removed or not</returns>
-        public async Task<bool> DeleteWithHashedKey(string hashedKey)
+        public async Task<bool> DeleteWithGuid(string guid)
         {
             try
             {
                 await using var context = DatabaseContextFactory.CreateDbContext();
-                var user = await context.Set<User>().LastOrDefaultAsync(u => u.HashedKey == hashedKey);
+                var user = await context.Set<User>().LastOrDefaultAsync(u => u.Guid == guid);
 
                 context.Set<User>().Remove(user);
 
@@ -155,7 +156,7 @@ namespace DingDong.Backend.Communication.Database.Repositories
             }
             catch (Exception e)
             {
-                throw new DatabaseException(DatabaseExceptionType.GetFailed, "Exception with removing user in database based on hashed-key", e);
+                throw new DatabaseException(DatabaseExceptionType.GetFailed, "Exception with removing user in database based on Guid", e);
             }
         }
 

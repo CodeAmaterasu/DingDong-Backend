@@ -17,7 +17,6 @@
   <ItemGroup>
     <ProjectReference Include="..\Common.Data\Common.Data.csproj" />
     <ProjectReference Include="..\Communication.Database\Communication.Database.csproj" />
-    <ProjectReference Include="..\Business.Hash\Business.Hash.csproj" />
   </ItemGroup>
 
 </Project>

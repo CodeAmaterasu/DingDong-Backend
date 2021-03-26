@@ -8,6 +8,12 @@ namespace DingDong.Backend.Common.Data
     public class User
     {
         /// <summary>
+        /// ID of the user
+        /// </summary>
+        [Key]
+        public int Id { get; set; }
+
+        /// <summary>
         /// Firstname of the user
         /// </summary>
         public string Firstname { get; set; }
@@ -23,11 +29,13 @@ namespace DingDong.Backend.Common.Data
         public string Email { get; set; }
 
         /// <summary>
-        /// Secret hashed key, used for authenticating the user in the login-terminal
+        /// Used for telling if a user is assigned to a user not
         /// </summary>
-        [Key]
-        public string HashedKey { get; set; }
-
         public bool IsSigned { get; set; }
+
+        /// <summary>
+        /// GUID of the assigned Badge
+        /// </summary>
+        public string Guid { get; set; }
     }
 }
