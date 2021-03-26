@@ -1,0 +1,23 @@
+@startuml UseCaseDiagram
+
+left to right direction
+
+Actor MBED
+Actor Frontend
+Actor Postman
+
+package Backend {
+    (Register) AS Register
+    (Login) AS Login
+    (Sign) AS Sign
+    (Delete) AS Delete
+    (Test) AS Test
+}
+
+Frontend --> Register
+MBED --> Login
+MBED --> Sign
+Delete <-- Postman
+Test <-- Postman
+
+@enduml

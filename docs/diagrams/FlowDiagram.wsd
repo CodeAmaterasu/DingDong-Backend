@@ -1,0 +1,12 @@
+@startuml FlowDiagram
+
+(UserController) AS UserController
+(UserManager) AS UserManager
+(Hasher) AS Hasher
+(UserRepository) AS UserRepository
+
+UserController --> UserManager
+UserManager --> Hasher
+UserManager --> UserRepository
+
+@enduml
