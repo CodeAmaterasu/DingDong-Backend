@@ -1,5 +1,6 @@
 ﻿using DingDong.Backend.Communication.Database.Repositories;
 using DingDong.Backend.Common.Data.Exceptions;
+using System;
 
 namespace DingDong.Backend.Common.Data
 {
@@ -33,6 +34,10 @@ namespace DingDong.Backend.Common.Data
                 return task.Result != null;
             }
             catch (DatabaseException)
+            {
+                return false;
+            }
+            catch (AggregateException)
             {
                 return false;
             }
@@ -84,9 +89,10 @@ namespace DingDong.Backend.Common.Data
                 _ = new System.Net.Mail.MailAddress(email);
 
                 // Check if email is already in use
-                return _userRepository.FindByEmail(email) == null;
+                 var task = _userRepository.FindByEmail(email);
+                return task.Result == null;
             }
-            catch
+            catch (DatabaseException e)
             {
                 return false;
             }

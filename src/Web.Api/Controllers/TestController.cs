@@ -17,6 +17,7 @@ namespace DingDong.Backend.Web.Api.Controllers
         [HttpGet]
         public IActionResult TestConnection()
         {
+            Response.Headers.Add("Access-Control-Allow-Origin", "*");
             var returnvalue = new { message = "Ich esse gerne Pastelfarben!" };
             return HttpCode.OK.GetObjectResult(returnvalue);
         }

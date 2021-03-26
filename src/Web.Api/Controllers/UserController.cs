@@ -64,11 +64,12 @@ namespace DingDong.Backend.Web.Api.Controllers
         /// <returns>Corresponding HTTP-Code indicating whether the request was successful or not</returns>
         [HttpPost]
         [Route("sign")]
-        public IActionResult Sign(string badgeGuid)
+        public IActionResult Sign(Badge badge)
         {
-            var isAssigned = _userManager.AssignBadgeToUser(badgeGuid);
+            if (string.IsNullOrEmpty(badge.BadgeGuid)) return HttpCode.BadRequest.GetStatusCodeResult();
+            var isAssigned = _userManager.AssignBadgeToUser(badge.BadgeGuid);
 
-            if (!isAssigned) return HttpCode.OK.GetStatusCodeResult();
+            if (isAssigned) return HttpCode.OK.GetStatusCodeResult();
             else return HttpCode.InternalServerError.GetStatusCodeResult();
         }
 
